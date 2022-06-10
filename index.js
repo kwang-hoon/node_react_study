@@ -3,9 +3,9 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser');
 
-const {auth} = require('./middleware/auth')
-const config = require('./config/key');
-const {User} = require("./models/User");
+const {auth} = require('./server/middleware/auth')
+const config = require('./server/config/key');
+const {User} = require("./server/models/User");
 
 const app = express()
 const port = 5000
@@ -37,7 +37,11 @@ app.post('/api/users/register', (req,res) => {
   }) 
 })
 
-app.post('/api/users//login', (req, res) => {
+app.get('/api/hello', (req,res) => {
+  res.send("hi");
+})
+
+app.post('/api/users/login', (req, res) => {
 
   //존재하는 이메일인지 확인
   User.findOne({email: req.body.email}, (err, user) => {
